@@ -2,10 +2,30 @@
 //
 
 #include <iostream>
+using namespace std;
+struct Pipe
+{
+    int id;
+    int d;
+};
 
+void PrintPipe(Pipe& p)
+{
+    cout << "Truba " << p.id << " imeet diametr " << p.d << "\n";
+}
+Pipe AddPipe()
+{
+    Pipe p;
+    p.id = 0;
+    cout << "Vvedite diametr\n";
+    cin >> p.d;
+    return p;
+
+}
 int main()
 {
-    std::cout << "Hello World!\n";
+    Pipe p = AddPipe();
+    PrintPipe(p);
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
