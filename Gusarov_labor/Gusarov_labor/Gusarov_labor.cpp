@@ -11,14 +11,60 @@ struct Pipe
     bool isworking;
 };
 
-void PrintPipe(Pipe& p)
+void Output(Pipe& p)
 {
-    cout << "Truba " << p.id << " imeet diametr " << p.d << "\n";
+    cout << "id - " << p.id;
+    cout << "\ndiametr - " << p.d;
+    cout << "\ndlina - " << p.length;
+    cout << "\n Rabotaet li(0 or 1): " << p.isworking;
 }
+
+struct Station
+{
+    int id;
+    int num_workshops;
+    int num_working_worksh;
+    int efficiency;
+    int d;
+    int length;
+};
+
+void Output(Station& s)
+{
+    
+}
+
+Station AddStation(int id)
+{
+    Station s{ 0 };
+    s.id = 0;
+    cout << "Vvedite diametr\n";
+    cin >> s.d;
+    cout << "Vvedite dlinu\n";
+    cin >> s.length;
+    while (s.d < 0)
+    {
+        cin >> s.d;
+        cout << "Wrong diametr, try again";
+        continue;
+    }
+    while (s.length < 0)
+    {
+        cin >> s.length;
+        cout << "Wrong diametr, try again";
+        continue;
+    }
+
+    return s;
+}
+
 Pipe AddPipe(int id)
 {
     Pipe p{ 0 };
     p.id = 0;
+    p.isworking = 0;
+    cout << "Rabotaet li truba? (0 - esli ne rabotaet, 1 - esli rabotaet)";
+    cin >> p.isworking;
     cout << "Vvedite diametr\n";
     cin >> p.d;
     cout << "Vvedite dlinu\n";
@@ -48,6 +94,7 @@ int main()
 
     int choose;
     int pipe_count=0;
+    int station_count = 0;
     bool menu = true;
     cout << "Start\n"<< "Enter a number: \n";
     while (menu) 
@@ -60,7 +107,7 @@ int main()
             switch (choose) 
             {
                 case 0:
-                    cout << "Exit\n";
+                    cout << "Exit...\n";
                     exit(0);
                     break;
                 case 1:
@@ -69,9 +116,11 @@ int main()
                     break;
                 case 2:
                     cout << "AddStation\n";
+                    Station s = AddStation(station_count);
                     break;
                 case 3:
                     cout << "Output\n";
+                    
                     break;
                 case 4:
                     cout << "Editing\n";
