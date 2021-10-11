@@ -15,7 +15,7 @@ void PrintPipe(Pipe& p)
 {
     cout << "Truba " << p.id << " imeet diametr " << p.d << "\n";
 }
-Pipe AddPipe()
+Pipe AddPipe(int id)
 {
     Pipe p{ 0 };
     p.id = 0;
@@ -36,18 +36,23 @@ Pipe AddPipe()
         continue;
     }
     return p;
+    
 
 }
 
 int main()
 {
-    
+    cout << "The list of functions: \n";
+    cout << "0) Exit\n" << "1) Add pipe\n" << "2) Add Station\n" << "3) Output\n" << "4) Editing\n";
+    cout << "\n\n";
+
     int choose;
     int pipe_count=0;
     bool menu = true;
+    cout << "Start\n"<< "Enter a number: \n";
     while (menu) 
     {
-        cout << "start\n";
+        
         cin >> choose;
         if (!cin.fail() && choose >=0 && choose <= 7)
         {
@@ -56,9 +61,11 @@ int main()
             {
                 case 0:
                     cout << "Exit\n";
+                    exit(0);
                     break;
                 case 1:
-                    Pipe p1 = AddPipe(pipe_count);
+                    cout << "Add Pipe\n";
+                    Pipe p = AddPipe(pipe_count);
                     break;
                 case 2:
                     cout << "AddStation\n";
@@ -77,7 +84,12 @@ int main()
         {
             cout << "The entered data is incorrect\n" << "Enter new value:\n";
             continue;
+            cout << "\n\n";
+            cout << "Choose next number \n";
         }
+        
+        cout << "\n\n";
+        cout << "Choose next number \n";
     }
     return 0;
 }
