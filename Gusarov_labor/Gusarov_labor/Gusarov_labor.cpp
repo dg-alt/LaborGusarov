@@ -2,6 +2,8 @@
 //
 
 #include <iostream>
+#include <fstream>
+
 using namespace std;
 struct Pipe
 {
@@ -11,56 +13,48 @@ struct Pipe
     bool isworking;
 };
 
-void Output(Pipe& p)
-{
-    cout << "id - " << p.id;
-    cout << "\ndiametr - " << p.d;
-    cout << "\ndlina - " << p.length;
-    cout << "\n Rabotaet li(0 or 1): " << p.isworking;
-}
+
 
 struct Station
 {
     int id;
-    int num_workshops;
-    int num_working_worksh;
-    int efficiency;
+    int name;
+    double num_workshops;
+    double num_working_worksh;
+    double efficiency;
     int d;
     int length;
 };
 
 void Output(Station& s)
 {
-    
+    cout << "id - " << s.id;
+    cout << "\nname - " << s.name;
+    cout << "\n kol-vo cehov - " << s.num_workshops;
+    cout << "\n kol-vo rabotaushikh cehov - " << s.num_working_worksh;
+    cout << "\nefficiency - " << s.efficiency;
 }
+
 
 Station AddStation(int id)
 {
-    Station s{ 0 };
-    s.id = 0;
-    cout << "Vvedite diametr\n";
-    cin >> s.d;
-    cout << "Vvedite dlinu\n";
-    cin >> s.length;
-    while (s.d < 0)
-    {
-        cin >> s.d;
-        cout << "Wrong diametr, try again";
-        continue;
-    }
-    while (s.length < 0)
-    {
-        cin >> s.length;
-        cout << "Wrong diametr, try again";
-        continue;
-    }
+    Station s;
+    s.id = 1;
+    cout << "Vvedite digital meaning ceha: \n";
+    cin >> s.name;
+    cout << "Vvedite kol-vo cehov: \n";
+    cin >> s.num_workshops;
+    cout << "Vvedite kol-vo rabotaushikh cehov: \n";
+    cin >> s.num_working_worksh;
+    cout << "Efficiency = kol-vo cehov / kol-vo rabotaushikh cehov = " <<  s.num_working_worksh/s.num_workshops  * 100 << "%";
+
 
     return s;
 }
 
 Pipe AddPipe(int id)
 {
-    Pipe p{ 0 };
+    Pipe p;
     p.id = 0;
     p.isworking = 0;
     cout << "Rabotaet li truba? (0 - esli ne rabotaet, 1 - esli rabotaet)";
@@ -85,11 +79,19 @@ Pipe AddPipe(int id)
     
 
 }
+    void Output(Pipe& p)
+    {
+        cout << "id - " << p.id;
+        cout << "\ndiametr - " << p.d;
+        cout << "\ndlina - " << p.length;
+        cout << "\n Rabotaet li(0 or 1): " << p.isworking;
+    }
+
 
 int main()
 {
     cout << "The list of functions: \n";
-    cout << "0) Exit\n" << "1) Add pipe\n" << "2) Add Station\n" << "3) Output\n" << "4) Editing\n";
+    cout << "0) Exit\n" << "1) Add pipe\n" << "2) Add Station\n" << "3) Output\n" << "4) Save\n" << "5) Download\n";
     cout << "\n\n";
 
     int choose;
@@ -101,7 +103,7 @@ int main()
     {
         
         cin >> choose;
-        if (!cin.fail() && choose >=0 && choose <= 7)
+        if (!cin.fail() && choose >=0 && choose <= 5)
         {
 
             switch (choose) 
@@ -120,12 +122,17 @@ int main()
                     break;
                 case 3:
                     cout << "Output\n";
-                    
+                    Pipe p = AddPipe(0);
+                    Station s = AddStation(0);
+                    Output(p);
+                    Output(s);
+
                     break;
                 case 4:
-                    cout << "Editing\n";
+                    cout << "Save\n";
                     break;
                 case 5:
+                    cout << "Download\n";
                     break;
             }
         }
