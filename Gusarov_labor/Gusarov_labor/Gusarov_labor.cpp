@@ -2,17 +2,20 @@
 //
 
 #include <iostream>
+#include <string>
 #include <fstream>
 
 using namespace std;
 struct Pipe
 {
-    int id;
+    int id = 0;
     int d;
-    int length;
-    bool isworking;
+    double length;
+    bool isworking = true;
 };
-
+bool PiExists(const Pipe& p) {
+    return p.id != -1;
+}
 
 
 struct Station
@@ -26,13 +29,26 @@ struct Station
     int length;
 };
 
-void Output(Station& s)
+void Output(const Station& s, const Pipe& p)
 {
-    cout << "id - " << s.id;
-    cout << "\nname - " << s.name;
-    cout << "\n kol-vo cehov - " << s.num_workshops;
-    cout << "\n kol-vo rabotaushikh cehov - " << s.num_working_worksh;
-    cout << "\nefficiency - " << s.efficiency;
+
+    cout << "\nOutput\n";
+    // if (vector_of_Pipes.length != 0
+    if (p.length > 0) {
+        cout << "\nOutput Pipe(s)";
+        cout << "\nId: " << p.id;
+        cout << "\nDiameter: " << p.d;
+        cout << "\nLength: " << p.length << "\n";
+    }
+    // if (vector_of_Station.length != 0){}
+    if (s.name != "") {
+        cout << "\nOutput station(s)";
+        cout << "\nId: " << s.id;
+        cout << "\nname: " << s.name;
+        cout << "\nnumber of workshops: " << s.num_workshops;
+        cout << "\nnumber of working workshops: " << s.num_working_worksh;
+        cout << "\nEfficiency: " << s.efficiency << "\n";
+    }
 }
 
 
@@ -54,59 +70,54 @@ Station AddStation(int id)
 
 Pipe AddPipe(int id)
 {
+    cout << "Adding Pipe\n";
     Pipe p;
-    p.id = 0;
-    p.isworking = 0;
-    cout << "Rabotaet li truba? (0 - esli ne rabotaet, 1 - esli rabotaet)";
-    cin >> p.isworking;
-    cout << "Vvedite diametr\n";
-    cin >> p.d;
-    cout << "Vvedite dlinu\n";
-    cin >> p.length;
-    while (p.d < 0) 
-    {
-        cin >> p.d;
-        cout << "Wrong diametr, try again";
-        continue;
+    cout << "Input diameter:\n";
+    p.d = 0;
+    while (p.d <= 0) {
+        p.d = input_integer();
     }
-    while (p.length < 0)
-    {
-        cin >> p.length;
-        cout << "Wrong diametr, try again";
-        continue;
+    cout << "Input length:\n";
+    p.length = 0;
+    while (p.length <= 0) {
+        p.length = input_double();
     }
     return p;
     
 
 }
-    void Output(Pipe& p)
-    {
-        cout << "id - " << p.id;
-        cout << "\ndiametr - " << p.d;
-        cout << "\ndlina - " << p.length;
-        cout << "\n Rabotaet li(0 or 1): " << p.isworking;
-    }
 
+void printMenu()
+{
+    cout << "1. Add pipe\n";
+    cout << "2. Add station\n";
+    cout << "3. Output\n";
+    cout << "4. Edit pipe\n";
+    cout << "5. Edit station\n";
+    cout << "6. Save\n";
+    cout << "7. Load\n";
+    cout << "0. Exit\n\n";
+}
+int input_integer() 
+{
+    string str;
+}
 
 int main()
 {
     cout << "The list of functions: \n";
-    cout << "0) Exit\n" << "1) Add pipe\n" << "2) Add Station\n" << "3) Output\n" << "4) Save\n" << "5) Download\n";
+    
     cout << "\n\n";
-
-    int choose;
-    int pipe_count=0;
-    int station_count = 0;
-    bool menu = true;
+    Pipe p1;
+    p1.length = -1;
+    Station s1;
+    s1.name = "";
     cout << "Start\n"<< "Enter a number: \n";
-    while (menu) 
+    while (1) 
     {
         
-        cin >> choose;
-        if (!cin.fail() && choose >=0 && choose <= 5)
-        {
-
-            switch (choose) 
+        printMenu();
+            switch (input_integer()) 
             {
                 case 0:
                     cout << "Exit...\n";
@@ -114,38 +125,28 @@ int main()
                     break;
                 case 1:
                     cout << "Add Pipe\n";
-                    Pipe p = AddPipe(pipe_count);
+                    p1 = AddPipe(0);
                     break;
                 case 2:
                     cout << "AddStation\n";
-                    Station s = AddStation(station_count);
+                    s1 = AddStation(0);
                     break;
                 case 3:
-                    cout << "Output\n";
-                    Pipe p = AddPipe(0);
-                    Station s = AddStation(0);
-                    Output(p);
-                    Output(s);
-
+                    Output(p1, s1);
                     break;
                 case 4:
-                    cout << "Save\n";
+                    
                     break;
                 case 5:
-                    cout << "Download\n";
+                    
+                    break;
+                case 6:
+
+                    break;
+                case 7:
+
                     break;
             }
-        }
-        else 
-        {
-            cout << "The entered data is incorrect\n" << "Enter new value:\n";
-            continue;
-            cout << "\n\n";
-            cout << "Choose next number \n";
-        }
-        
-        cout << "\n\n";
-        cout << "Choose next number \n";
     }
     return 0;
 }
